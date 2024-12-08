@@ -1,5 +1,4 @@
-﻿
-using System.Text.RegularExpressions;
+﻿using Common;
 
 var pagesToProduce = File.OpenText(@"..\..\..\pagestoproduce.txt").ReadPagesToProduce().ToList();
 var orderingRules = File.OpenText(@"..\..\..\pageorderingrules.txt").ReadOrderingRules().ToHashSet();
@@ -27,7 +26,7 @@ internal static class Extensions
         text.ReadLines().TakeWhile(line => string.IsNullOrWhiteSpace(line) is false).Select(ToSortOrder);
 
     public static IEnumerable<IEnumerable<int>> ReadPagesToProduce(this TextReader text) =>
-        text.ReadLines().Select(ParseInt);
+        text.ReadLines().Select(x => x.ParseInts());
 
     public static bool IsSorted(this List<int> pages, IComparer<int> comparer) =>
         pages.SelectMany((prev, index) => pages[(index + 1)..].Select(next => (prev, next)))
@@ -48,15 +47,4 @@ internal static class Extensions
         var parts = line.Split('|');
         return (int.Parse(parts[0]), int.Parse(parts[1]));
     }
-
-    private static IEnumerable<string> ReadLines(this TextReader text)
-    {
-        while (text.ReadLine() is string line)
-        {
-            yield return line;
-        }
-    }
-
-    private static IEnumerable<int> ParseInt(this string line) =>
-        Regex.Matches(line, @"\d+").Select(match => int.Parse(match.Value));
 }
