@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Common;
+namespace AdventOfCode;
 
 public static class Extensions
 {
