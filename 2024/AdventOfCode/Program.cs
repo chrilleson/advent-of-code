@@ -16,6 +16,7 @@ static IReadOnlyDictionary<int, Action> MenuItems() => new Dictionary<int, Actio
     { 6, Day6.Run },
     { 7, Day7.Run },
     { 8, Day8.Run },
+    { 9, Day9.Run },
 };
 
 static void Run()
