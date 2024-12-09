@@ -1,33 +1,35 @@
-﻿
-using Common;
+﻿namespace AdventOfCode;
 
-var map = File.OpenText(@"..\..\..\input.txt")
-    .ReadLines()
-    .Select(x => x.ToCharArray())
-    .ToArray();
-
-var steps = map
-    .Path()
-    .Select(x => (x.row, x.col))
-    .Distinct()
-    .Count();
-
-var startingPosition = map.StartingPosition();
-var obstructionPointsCount = map
-    .Path()
-    .Select(x => (x.row, x.col))
-    .Where(coord => coord != (startingPosition.row, startingPosition.col))
-    .Distinct()
-    .Count(x => map.WhatIf(x, map => map.ContainsLoop()));
-
-Console.WriteLine("Steps count: {0}", steps);
-Console.WriteLine("Obstruction points count: {0}", obstructionPointsCount);
-
-internal static class Extensions
+public static class Day6
 {
     private const string Orientations = "^>v<";
 
-    public static IEnumerable<(int row, int col, char orientation)> Path(this char[][] map)
+    public static void Run()
+    {
+        var map = File.OpenText(@$"{AppContext.BaseDirectory}\inputs\day6.txt")
+            .ReadLines()
+            .Select(x => x.ToCharArray())
+            .ToArray();
+
+        var steps = map
+            .Path()
+            .Select(x => (x.row, x.col))
+            .Distinct()
+            .Count();
+
+        var startingPosition = map.StartingPosition();
+        var obstructionPointsCount = map
+            .Path()
+            .Select(x => (x.row, x.col))
+            .Where(coord => coord != (startingPosition.row, startingPosition.col))
+            .Distinct()
+            .Count(x => map.WhatIf(x, map => map.ContainsLoop()));
+
+        Console.WriteLine("Steps count: {0}", steps);
+        Console.WriteLine("Obstruction points count: {0}", obstructionPointsCount);
+    }
+
+    private static IEnumerable<(int row, int col, char orientation)> Path(this char[][] map)
     {
         var state = map.StartingPosition();
         yield return state;
@@ -60,12 +62,12 @@ internal static class Extensions
         }
     }
 
-    public static (int row, int col, char orientation) StartingPosition(this char[][] map) =>
+    private static (int row, int col, char orientation) StartingPosition(this char[][] map) =>
         map
             .SelectMany((row, rowIndex) => row.Select((cell, colIndex) => (rowIndex, colIndex, cell)))
             .First(x => Orientations.Contains(x.cell));
 
-    public static T WhatIf<T>(this char[][] map, (int row, int col) insertObstacle, Func<char[][], T> func)
+    private static T WhatIf<T>(this char[][] map, (int row, int col) insertObstacle, Func<char[][], T> func)
     {
         var original = map[insertObstacle.row][insertObstacle.col];
         map[insertObstacle.row][insertObstacle.col] = '#';
@@ -76,7 +78,7 @@ internal static class Extensions
         return result;
     }
 
-    public static bool ContainsLoop(this char[][] map) =>
+    private static bool ContainsLoop(this char[][] map) =>
         map.Path().Count() != map.Path().Distinct().Count();
 
     private static bool ContainsObstacle(this char[][] map, int row, int col) =>
