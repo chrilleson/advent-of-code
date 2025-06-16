@@ -13,7 +13,9 @@ func main() {
 }
 
 func MenuItems() map[int]func() {
-	return map[int]func(){}
+	return map[int]func(){
+		1: Day1,
+	}
 }
 
 func Run() {
