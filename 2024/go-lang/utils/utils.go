@@ -6,8 +6,10 @@ import (
 	"path/filepath"
 )
 
+const InputsDirectory string = "inputs"
+
 func ReadInputFile(fileName string) []byte {
-	filePath := filepath.Join("inputs", fileName)
+	filePath := filepath.Join(InputsDirectory, fileName)
 	data, err := os.ReadFile(filePath)
 	if err != nil {
 		log.Fatal(err)

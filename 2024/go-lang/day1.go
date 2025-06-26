@@ -10,6 +10,8 @@ import (
 	"strings"
 )
 
+const TripleSpaceSeparator string = "   "
+
 func Day1() {
 	data := utils.ReadInputFile("day1.txt")
 	cleanLines := strings.Split(strings.TrimSpace(string(data)), "\n")
@@ -28,7 +30,7 @@ func SplitLists(lines []string) ([]int, []int) {
 	listTwo := []int{}
 
 	for _, line := range lines {
-		numbers := strings.Split(line, "   ")
+		numbers := strings.Split(line, TripleSpaceSeparator)
 		numOne, err := strconv.Atoi(numbers[0])
 		if err != nil {
 			log.Fatal(err)
@@ -62,13 +64,13 @@ func CalcSimilarity(listOne []int, listTwo []int) int {
 
 	totalSimilarity := 0
 	for _, number := range listOne {
-		occerrences := 0
+		occurrences := 0
 		for _, num := range listTwo {
 			if num == number {
-				occerrences++
+				occurrences++
 			}
 		}
-		totalSimilarity += number * occerrences
+		totalSimilarity += number * occurrences
 	}
 
 	return totalSimilarity
