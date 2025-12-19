@@ -11,7 +11,7 @@ import (
 func MenuItems() map[int]func() {
 	return map[int]func(){
 		// Add days here as they're implemented
-		// 1: Day1,
+		1: Day1,
 	}
 }
 
