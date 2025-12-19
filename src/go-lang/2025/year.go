@@ -1,4 +1,4 @@
-package main
+package year2025
 
 import (
 	"bufio"
@@ -8,24 +8,31 @@ import (
 	"strings"
 )
 
-func main() {
-	Run()
-}
-
 func MenuItems() map[int]func() {
 	return map[int]func(){
-		1: Day1,
-		2: Day2,
+		// Add days here as they're implemented
+		// 1: Day1,
 	}
 }
 
-func Run() {
+func RunYear2025() {
 	menuItems := MenuItems()
 
 	// Clear screen (ANSI escape code)
 	fmt.Print("\033[2J\033[H")
-	fmt.Println("🎅Advent of Code 2024🎅")
+	fmt.Println("🎅Advent of Code 2025🎅")
 	fmt.Println()
+
+	if len(menuItems) == 0 {
+		fmt.Println("No days implemented yet!")
+		fmt.Println()
+		fmt.Println("1 : Back to Year Selection")
+		fmt.Print("> ")
+
+		reader := bufio.NewReader(os.Stdin)
+		reader.ReadString('\n')
+		return
+	}
 
 	// Display menu items
 	for i := 1; i <= len(menuItems); i++ {
@@ -33,7 +40,7 @@ func Run() {
 			fmt.Println(i, ":", "Day ", i)
 		}
 	}
-	fmt.Println(len(menuItems)+1, ":", "Exit")
+	fmt.Println(len(menuItems)+1, ":", "Back to Year Selection")
 	fmt.Print("> ")
 
 	// Read user input
@@ -43,7 +50,7 @@ func Run() {
 		fmt.Printf("\n❌ Error reading input: %v\n", err)
 		fmt.Print("Press Enter to continue...")
 		reader.ReadString('\n')
-		Run()
+		RunYear2025()
 		return
 	}
 
@@ -55,30 +62,28 @@ func Run() {
 		fmt.Printf("\n❌ Invalid input: %s\n", err.Error())
 		fmt.Print("Press Enter to continue...")
 		reader.ReadString('\n')
-		Run()
+		RunYear2025()
 		return
 	}
 
-	// Handle exit
+	// Handle back to year selection
 	if key == len(menuItems)+1 {
-		fmt.Println("Goodbye!")
-		os.Exit(0)
-		return
+		return // Returns to main menu
 	}
 
 	// Execute selected day
 	if dayFunc, exists := menuItems[key]; exists {
 		fmt.Print("\033[2J\033[H")
-		fmt.Printf("🎅Advent of Code 2024🎅%sDay %d%s", "\n\n", key, "\n\n")
+		fmt.Printf("🎅Advent of Code 2025🎅%sDay %d%s", "\n\n", key, "\n\n")
 		dayFunc()
 		fmt.Print("Press Enter to continue...")
 		reader.ReadString('\n')
-		Run()
+		RunYear2025()
 	} else {
 		fmt.Print("\033[2J\033[H")
 		fmt.Printf("\n❌ Invalid selection: %d\n", key)
 		fmt.Print("Press Enter to continue...")
 		reader.ReadString('\n')
-		Run()
+		RunYear2025()
 	}
 }

@@ -1,4 +1,4 @@
-package main
+package year2024
 
 import (
 	"advent-of-code/utils"
@@ -9,7 +9,7 @@ import (
 )
 
 func Day2() {
-	data := utils.ReadInputFile("day2.txt")
+	data := utils.ReadInputFile("2024", "day2")
 	reports := extractReports(data)
 
 	safeReports := 0

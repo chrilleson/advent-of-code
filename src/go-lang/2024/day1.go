@@ -1,4 +1,4 @@
-package main
+package year2024
 
 import (
 	"advent-of-code/utils"
@@ -13,7 +13,7 @@ import (
 const TripleSpaceSeparator string = "   "
 
 func Day1() {
-	data := utils.ReadInputFile("day1.txt")
+	data := utils.ReadInputFile("2024", "day1")
 	cleanLines := strings.Split(strings.TrimSpace(string(data)), "\n")
 
 	for i, line := range cleanLines {
