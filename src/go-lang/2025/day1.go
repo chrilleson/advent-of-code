@@ -16,12 +16,17 @@ func Day1() {
 		cleanLines[i] = strings.TrimSpace(line)
 	}
 
-	fmt.Println("totalZeroCount", PartOne(cleanLines))
+	partOneAnswer, partTwoAnswer := PartOne(cleanLines)
+
+	fmt.Println("Part 1 Answer: ", partOneAnswer)
+	fmt.Println("Part 2 Answer: ", partTwoAnswer)
 }
 
-func PartOne(instructions []string) int {
-	const initDialPosition = 50
-	totalZeroCount := 0
+const initDialPosition = 50
+
+func PartOne(instructions []string) (int, int) {
+	partOneCount := 0 // Part 1: only count landing on 0
+	partTwoCount := 0 // Part 2: count all passes through 0
 	currentPosition := initDialPosition
 
 	for _, instruction := range instructions {
@@ -32,18 +37,30 @@ func PartOne(instructions []string) int {
 			log.Fatal(err)
 		}
 
+		startPosition := currentPosition
+		crossedZero := false
 		switch direction {
 		case "R":
-			currentPosition = currentPosition + distanceNum
+			currentPosition = ((currentPosition+distanceNum)%100 + 100) % 100
+			crossedZero = currentPosition < startPosition
 		case "L":
-			currentPosition = currentPosition - distanceNum
+			currentPosition = ((currentPosition-distanceNum)%100 + 100) % 100
+			crossedZero = currentPosition > startPosition
 		}
 
-		currentPosition = ((currentPosition % 100) + 100) % 100
+		// Part 1: Count only when landing exactly on 0
 		if currentPosition == 0 {
-			totalZeroCount++
+			partOneCount++
 		}
+
+		// Part 2: Count all passes through 0
+		completeCrosses := distanceNum / 100
+		partialCrosses := 0
+		if (crossedZero || currentPosition == 0) && startPosition != 0 {
+			partialCrosses = 1
+		}
+		partTwoCount += completeCrosses + partialCrosses
 	}
 
-	return totalZeroCount
+	return partOneCount, partTwoCount
 }
