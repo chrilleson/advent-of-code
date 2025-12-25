@@ -398,4 +398,20 @@ FodyWeavers.xsd
 *.sln.iml
 .idea
 
+# Go build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go test binary, built with `go test -c`
+*.test
+
+# Go output of `go build`
+*.out
+
+# Go dependency management
+vendor/
+
 .inputs
