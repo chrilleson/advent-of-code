@@ -261,7 +261,7 @@ func solvePart2(lines []string) int {
 
 3. Register in `src/go-lang/YEAR/year.go`:
 ```go
-func MenuItemsYYYY() map[int]func() {
+func MenuItemsYearYYYY() map[int]func() {
     return map[int]func(){
         // ... existing days
         X: DayX,
