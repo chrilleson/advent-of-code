@@ -216,8 +216,8 @@ Only add error handling if:
 Use descriptive output with string formatting:
 
 ```csharp
-Console.WriteLine("Total distance: {0}", calcDistance(foo.left, foo.right));
-Console.WriteLine("Similarity score: {0}", calcSimilarity(foo.left, foo.right));
+Console.WriteLine("Total distance: {0}", CalcDistance(foo.left, foo.right));
+Console.WriteLine("Similarity score: {0}", CalcSimilarity(foo.left, foo.right));
 ```
 
 **Format**:
