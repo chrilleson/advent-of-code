@@ -266,8 +266,8 @@ Only add detailed error handling if:
 Use descriptive output:
 
 ```go
-fmt.Println("Total distance:", CalcDistance(listOne, listTwo))
-fmt.Println("Total similarity:", CalcSimilarity(listOne, listTwo))
+fmt.Println("Total distance:", calcDistance(listOne, listTwo))
+fmt.Println("Total similarity:", calcSimilarity(listOne, listTwo))
 ```
 
 **Format**:
