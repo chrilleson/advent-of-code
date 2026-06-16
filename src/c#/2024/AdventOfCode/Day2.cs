@@ -15,7 +15,7 @@ public static class Day2
 
     private static IEnumerable<Report> GetReports()
     {
-        var lines = File.ReadLines(@$"{AppContext.BaseDirectory}\inputs\day2.txt");
+        var lines = File.ReadLines(Constants.Day2.GetInputPath());
 
         foreach (var line in lines)
         {

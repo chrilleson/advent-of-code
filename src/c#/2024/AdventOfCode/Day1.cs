@@ -4,7 +4,7 @@ public static class Day1
 {
     public static void Run()
     {
-        var foo = File.OpenText(@$"{AppContext.BaseDirectory}\inputs\day1.txt")
+        var foo = File.OpenText(Constants.Day1.GetInputPath())
             .ReadLines()
             .Select(x => x.ParseInts())
             .Transpose()
